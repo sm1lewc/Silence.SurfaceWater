@@ -44,7 +44,7 @@ public static class WaterQualityClassCalculatorV2002
     {
         return GetFactorClass(FactorInfo.CODMN.Code, value);
     }
-     
+
     /// <summary>
     /// 获取化学需氧量的水质类别
     /// </summary>
@@ -54,7 +54,7 @@ public static class WaterQualityClassCalculatorV2002
     {
         return GetFactorClass(FactorInfo.NH3N.Code, value);
     }
-    
+
     /// <summary>
     /// 获取总氮的水质类别
     /// </summary>
@@ -64,18 +64,18 @@ public static class WaterQualityClassCalculatorV2002
     {
         return GetFactorClass(FactorInfo.TN.Code, value);
     }
-    
+
     /// <summary>
     /// 获取总磷的水质类别
     /// </summary>
     /// <param name="value"></param>
     /// <param name="isLake"></param>
     /// <returns></returns>
-    public static WaterQualityClass GetTPClass(decimal value,bool isLake = false)
+    public static WaterQualityClass GetTPClass(decimal value, bool isLake = false)
     {
-        return GetFactorClass(FactorInfo.TP.Code, value,isLake);
+        return GetFactorClass(FactorInfo.TP.Code, value, isLake);
     }
-    
+
     /// <summary>
     /// 获取五日生化需氧量的水质类别
     /// </summary>
@@ -85,7 +85,7 @@ public static class WaterQualityClassCalculatorV2002
     {
         return GetFactorClass(FactorInfo.BOD5.Code, value);
     }
-    
+
     /// <summary>
     /// 获取化学需氧量的水质类别
     /// </summary>
@@ -95,7 +95,7 @@ public static class WaterQualityClassCalculatorV2002
     {
         return GetFactorClass(FactorInfo.COD.Code, value);
     }
-    
+
     /// <summary>
     /// 获取铜的水质类别
     /// </summary>
@@ -105,7 +105,7 @@ public static class WaterQualityClassCalculatorV2002
     {
         return GetFactorClass(FactorInfo.CU.Code, value);
     }
-    
+
     /// <summary>
     /// 获取锌的水质类别
     /// </summary>
@@ -115,7 +115,7 @@ public static class WaterQualityClassCalculatorV2002
     {
         return GetFactorClass(FactorInfo.ZN.Code, value);
     }
-    
+
     /// <summary>
     /// 获取氟化物的水质类别
     /// </summary>
@@ -125,7 +125,7 @@ public static class WaterQualityClassCalculatorV2002
     {
         return GetFactorClass(FactorInfo.FL.Code, value);
     }
-    
+
     /// <summary>
     /// 获取硒的水质类别
     /// </summary>
@@ -135,7 +135,7 @@ public static class WaterQualityClassCalculatorV2002
     {
         return GetFactorClass(FactorInfo.SE.Code, value);
     }
-    
+
     /// <summary>
     /// 获取砷的水质类别
     /// </summary>
@@ -145,7 +145,7 @@ public static class WaterQualityClassCalculatorV2002
     {
         return GetFactorClass(FactorInfo.AS.Code, value);
     }
-    
+
     /// <summary>
     /// 获取汞的水质类别
     /// </summary>
@@ -155,7 +155,7 @@ public static class WaterQualityClassCalculatorV2002
     {
         return GetFactorClass(FactorInfo.HG.Code, value);
     }
-    
+
     /// <summary>
     /// 获取镉的水质类别
     /// </summary>
@@ -165,7 +165,7 @@ public static class WaterQualityClassCalculatorV2002
     {
         return GetFactorClass(FactorInfo.CD.Code, value);
     }
-    
+
     /// <summary>
     /// 获取六价铬的水质类别
     /// </summary>
@@ -175,7 +175,7 @@ public static class WaterQualityClassCalculatorV2002
     {
         return GetFactorClass(FactorInfo.CR6.Code, value);
     }
-    
+
     /// <summary>
     /// 获取铅的水质类别
     /// </summary>
@@ -185,7 +185,7 @@ public static class WaterQualityClassCalculatorV2002
     {
         return GetFactorClass(FactorInfo.PB.Code, value);
     }
-    
+
     /// <summary>
     /// 获取氰化物的水质类别
     /// </summary>
@@ -195,7 +195,7 @@ public static class WaterQualityClassCalculatorV2002
     {
         return GetFactorClass(FactorInfo.CN.Code, value);
     }
-    
+
     /// <summary>
     /// 获取挥发酚的水质类别
     /// </summary>
@@ -205,7 +205,7 @@ public static class WaterQualityClassCalculatorV2002
     {
         return GetFactorClass(FactorInfo.VP.Code, value);
     }
-    
+
     /// <summary>
     /// 获取石油类的水质类别
     /// </summary>
@@ -215,7 +215,7 @@ public static class WaterQualityClassCalculatorV2002
     {
         return GetFactorClass(FactorInfo.PETRO.Code, value);
     }
-    
+
     /// <summary>
     /// 获取阴离子表面活性剂的水质类别
     /// </summary>
@@ -225,7 +225,7 @@ public static class WaterQualityClassCalculatorV2002
     {
         return GetFactorClass(FactorInfo.LAS.Code, value);
     }
-    
+
     /// <summary>
     /// 获取硫化物的水质类别
     /// </summary>
@@ -235,7 +235,7 @@ public static class WaterQualityClassCalculatorV2002
     {
         return GetFactorClass(FactorInfo.S2.Code, value);
     }
-    
+
     /// <summary>
     /// 获取粪大肠菌群的水质类别
     /// </summary>
@@ -273,5 +273,121 @@ public static class WaterQualityClassCalculatorV2002
         if (value <= standardValue.Class3) return WaterQualityClass.Class3;
         if (value <= standardValue.Class4) return WaterQualityClass.Class4;
         return value <= standardValue.Class5 ? WaterQualityClass.Class5 : WaterQualityClass.Class6;
+    }
+
+    
+    /*public static WaterQualityClass GetWaterQualityClass(List<(string,decimal,bool)> datas)
+    {
+        var codes = datas.Select(x => x.Item1).ToList();
+        // 判断codes是不是都是有效的表1指标编码
+        if (codes.All(Core.Validators.WaterQualityClassFactorValidatorV2002.IsValid))
+        {
+            var classes = datas.Where(x=>x.Item3).Select(x => GetFactorClass(x.Item1, x.Item2)).ToList();
+            return classes.Max();
+        }
+        else
+        {
+            throw new ArgumentOutOfRangeException("datas中存在非有效的表1指标编码");
+        }
+    }*/
+    
+    
+    
+    /// <summary>
+    /// 获取水质类别评价整体水质类别
+    /// </summary>
+    /// <param name="phValue"></param>
+    /// <param name="doValue"></param>
+    /// <param name="codmnValue"></param>
+    /// <param name="codValue"></param>
+    /// <param name="bod5Value"></param>
+    /// <param name="nh3nValue"></param>
+    /// <param name="tpValue"></param>
+    /// <param name="cuValue"></param>
+    /// <param name="znValue"></param>
+    /// <param name="flValue"></param>
+    /// <param name="seValue"></param>
+    /// <param name="asValue"></param>
+    /// <param name="hgValue"></param>
+    /// <param name="cdValue"></param>
+    /// <param name="cr6Value"></param>
+    /// <param name="pbValue"></param>
+    /// <param name="cnValue"></param>
+    /// <param name="vpValue"></param>
+    /// <param name="petroValue"></param>
+    /// <param name="lasValue"></param>
+    /// <param name="s2Value"></param>
+    /// <param name="isLake">是否为湖库,默认不是湖库false</param>
+    /// <param name="tnValue"></param>
+    /// <param name="isCalTn">总氮是否参与水质类别计算</param>
+    /// <param name="fcValue"></param>
+    /// <param name="isCalfc">粪大肠菌群是否参与水质类别计算</param>
+    /// <returns></returns>
+    public static WaterQualityClass GetWaterQualityClass(decimal phValue,
+        decimal doValue,
+        decimal codmnValue,
+        decimal codValue,
+        decimal bod5Value,
+        decimal nh3nValue,
+        decimal tpValue,
+        decimal cuValue,
+        decimal znValue,
+        decimal flValue,
+        decimal seValue,
+        decimal asValue,
+        decimal hgValue,
+        decimal cdValue,
+        decimal cr6Value,
+        decimal pbValue,
+        decimal cnValue,
+        decimal vpValue,
+        decimal petroValue,
+        decimal lasValue,
+        decimal s2Value,
+        bool isLake = false,
+        decimal? tnValue = null,
+        bool isCalTn = false,
+        decimal? fcValue = null,
+        bool isCalfc = false
+    )
+    {
+        var phClass = GetPHClass(phValue);
+        var doClass = GetDOClass(doValue);
+        var codmnClass = GetCODMNClass(codmnValue);
+        var nh3nClass = GetNH3NClass(nh3nValue);
+        var tpClass = GetTPClass(tpValue, isLake);
+        var bod5Class = GetBOD5Class(bod5Value);
+        var codClass = GetCODClass(codValue);
+        var cuClass = GetCUClass(cuValue);
+        var znClass = GetZNClass(znValue);
+        var flClass = GetFLClass(flValue);
+        var seClass = GetSEClass(seValue);
+        var asClass = GetASClass(asValue);
+        var hgClass = GetHGClass(hgValue);
+        var cdClass = GetCDClass(cdValue);
+        var cr6Class = GetCR6Class(cr6Value);
+        var pbClass = GetPBClass(pbValue);
+        var cnClass = GetCNClass(cnValue);
+        var vpClass = GetVPClass(vpValue);
+        var petroClass = GetPETROClass(petroValue);
+        var lasClass = GetLASClass(lasValue);
+        var s2Class = GetS2Class(s2Value);
+        var classes = new List<WaterQualityClass>
+        {
+            phClass, doClass, codmnClass, nh3nClass, tpClass, bod5Class, codClass, cuClass, znClass, flClass, seClass, asClass, hgClass, cdClass, cr6Class, pbClass, cnClass, vpClass, petroClass, lasClass, s2Class
+        };
+        if (tnValue != null && isCalTn)
+        {
+            var tnClass = GetTNClass(tnValue.Value);
+            classes.Add(tnClass);
+        }
+
+        if (fcValue != null && isCalfc)
+        {
+            var fcClass = GetFCClass(fcValue.Value);
+            classes.Add(fcClass);
+        }
+
+        return classes.Max();
     }
 }
