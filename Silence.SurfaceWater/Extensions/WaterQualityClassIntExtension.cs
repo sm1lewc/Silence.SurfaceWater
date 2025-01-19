@@ -7,12 +7,12 @@ namespace Silence.SurfaceWater.Extensions;
 public static class WaterQualityClassIntExtension
 {
     /// <summary>
-    /// int类型的水质类别转换为描述
+    /// int类型转为水质类别描述
     /// </summary>
     /// <param name="waterQualityClass"></param>
     /// <returns></returns>
     /// <exception cref="ArgumentOutOfRangeException"></exception>
-    public static string ToDescription(this int waterQualityClass)
+    public static string ToWaterQualityClassDescription(this int waterQualityClass)
     {
         return waterQualityClass switch
         {
