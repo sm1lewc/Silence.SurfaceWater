@@ -67,7 +67,7 @@ public static class QualityStandardV2002
     public static IClassStandardValue GetClassStandardValue(string factorCode, bool isLake = false)
     {
         var code = factorCode.ToLower();
-        if (!WaterQualityClassFactorValidatorV2002.IsValid(code))
+        if (!WaterQualityClassTable1FactorValidatorV2002.IsValid(code))
             throw new ArgumentOutOfRangeException($"{factorCode} 非有效的表1指标编码");
         if (code == FactorInfo.TP.Code)
         {
@@ -85,7 +85,7 @@ public static class QualityStandardV2002
     /// <exception cref="ArgumentOutOfRangeException"></exception>
     public static IStandardValue GetStandardValue(string factorCode)
     {
-        if (!WaterQualityClassFactorValidatorV2002.IsValid(factorCode))
+        if (!WaterQualityClassTable1FactorValidatorV2002.IsValid(factorCode))
             throw new ArgumentOutOfRangeException($"{factorCode} 非有效的表2、表3指标编码");
         return _StandardValues[factorCode];
     }

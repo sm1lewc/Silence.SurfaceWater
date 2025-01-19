@@ -6,7 +6,7 @@ namespace Silence.SurfaceWater.Core.Validators;
 /// 是否为水质类别指标的验证器
 /// 是否为表1中的指标
 /// </summary>
-public static class WaterQualityClassFactorValidatorV2002
+public static class WaterQualityClassTable1FactorValidatorV2002
 {
     public static bool IsValid(string factorCode)
     {
