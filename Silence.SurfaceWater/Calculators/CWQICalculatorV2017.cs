@@ -94,17 +94,6 @@ public static class CWQICalculatorV2017
     }
 
     /// <summary>
-    /// 获取总氮的CWQI,返回值不修约
-    /// </summary>
-    /// <param name="value"></param>
-    /// <param name="version"></param>
-    /// <returns></returns>
-    public static decimal GetTNCwqi(decimal value, GB3838Version version = GB3838Version.V2002)
-    {
-        return GetOtherCwqi(value, FactorInfo.TN, false, version);
-    }
-
-    /// <summary>
     /// 获取铜的CWQI,返回值不修约
     /// </summary>
     /// <param name="value"></param>
@@ -258,17 +247,6 @@ public static class CWQICalculatorV2017
         return GetOtherCwqi(value, FactorInfo.S2, false, version);
     }
 
-    /// <summary>
-    /// 获取粪大肠菌群的CWQI,返回值不修约
-    /// </summary>
-    /// <param name="value"></param>
-    /// <param name="version"></param>
-    /// <returns></returns>
-    public static decimal GetFCCwqi(decimal value, GB3838Version version = GB3838Version.V2002)
-    {
-        return GetOtherCwqi(value, FactorInfo.FC, false, version);
-    }
-
 
     /// <summary>
     /// 获取指标的CWQI,返回值不修约
@@ -284,7 +262,9 @@ public static class CWQICalculatorV2017
 
         if (factorCode.Equals(FactorInfo.DO.Code, StringComparison.CurrentCultureIgnoreCase)) return GetDOCwqi(value, version);
 
-        if (!WaterQualityClassTable1FactorValidatorV2002.IsValid(factorCode)) throw new ArgumentOutOfRangeException($"{factorCode} 非有效的表1指标编码");
+        if (!WaterQualityClassTable1FactorValidatorV2002.IsValid(factorCode)) throw new ArgumentOutOfRangeException($"{factorCode} 非有效的CWQI指标编码");
+        if (factorCode.Equals(FactorInfo.TN.Code, StringComparison.CurrentCultureIgnoreCase) || factorCode.Equals(FactorInfo.FC.Code, StringComparison.CurrentCultureIgnoreCase))
+            throw new ArgumentOutOfRangeException($"{factorCode} 非有效的CWQI指标编码");
         return GetOtherCwqi(value, FactorInfo.GetFactorInfo(factorCode)!, isLake, version);
     }
 
