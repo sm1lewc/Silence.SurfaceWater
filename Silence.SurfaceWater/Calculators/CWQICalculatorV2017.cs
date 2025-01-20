@@ -279,7 +279,7 @@ public static class CWQICalculatorV2017
     private static decimal GetOtherCwqi(decimal value, IFactor factor, bool isLake = false, GB3838Version version = GB3838Version.V2002)
     {
         FactorValueValidator.ValidateOtherFactor(value, factor.Name);
-        var standard3Value = QualityStandardV2002.GetClassStandardValue(factor.Code, isLake).Class3;
-        return value / standard3Value;
+        var class3Value = QualityStandardV2002.GetClassStandardValue(factor.Code, isLake).Class3;
+        return value / class3Value;
     }
 }
