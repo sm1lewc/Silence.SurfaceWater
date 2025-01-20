@@ -1,4 +1,5 @@
 using System.Diagnostics.CodeAnalysis;
+using System.Runtime.CompilerServices;
 using Silence.SurfaceWater.Core.Interfaces;
 using Silence.SurfaceWater.Core.Models;
 using Silence.SurfaceWater.Core.Validators;
@@ -33,7 +34,6 @@ public static class QualityStandardV2002
             [FactorInfo.COD.Code] = COD,
             [FactorInfo.BOD5.Code] = BOD5,
             [FactorInfo.NH3N.Code] = NH3N,
-            [FactorInfo.TP.Code] = TP_Lake,
             [FactorInfo.TN.Code] = TN,
             [FactorInfo.CU.Code] = CU,
             [FactorInfo.ZN.Code] = ZN,
@@ -73,8 +73,46 @@ public static class QualityStandardV2002
         {
             return isLake ? TP_Lake : TP_River;
         }
+
         return _ClassStandardValues[code];
     }
+
+    /// <summary>
+    /// 获取指标某个水质的标准值
+    /// </summary>
+    /// <param name="factorCode"></param>
+    /// <param name="waterQualityClass"></param>
+    /// <param name="isLake"></param>
+    /// <returns></returns>
+    /// <exception cref="ArgumentOutOfRangeException"></exception>
+    public static decimal GetClassStandardValueByClass(string factorCode, int waterQualityClass, bool isLake = false)
+    {
+        var code = factorCode.ToLower();
+        if (!WaterQualityClassTable1FactorValidatorV2002.IsValid(code))
+            throw new ArgumentOutOfRangeException($"{factorCode} 非有效的表1指标编码");
+        if (waterQualityClass < 1 || waterQualityClass > 5)
+            throw new ArgumentOutOfRangeException($"{waterQualityClass} 非有效的水质类别");
+        IClassStandardValue tmp;
+        if (code == FactorInfo.TP.Code)
+        {
+            tmp = isLake ? TP_Lake : TP_River;
+        }
+        else
+        {
+            tmp = _ClassStandardValues[code];
+        }
+
+        return waterQualityClass switch
+        {
+            1 => tmp.Class1,
+            2 => tmp.Class2,
+            3 => tmp.Class3,
+            4 => tmp.Class4,
+            5 => tmp.Class5,
+            _ => throw new ArgumentOutOfRangeException(nameof(waterQualityClass), waterQualityClass, null)
+        };
+    }
+
 
     /// <summary>
     /// 获取标准值
@@ -85,6 +123,7 @@ public static class QualityStandardV2002
     /// <exception cref="ArgumentOutOfRangeException"></exception>
     public static IStandardValue GetStandardValue(string factorCode)
     {
+        // TODO:修改此处的验证，改为表2 表3
         if (!WaterQualityClassTable1FactorValidatorV2002.IsValid(factorCode))
             throw new ArgumentOutOfRangeException($"{factorCode} 非有效的表2、表3指标编码");
         return _StandardValues[factorCode];
