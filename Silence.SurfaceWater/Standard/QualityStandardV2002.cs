@@ -1,5 +1,4 @@
 using System.Diagnostics.CodeAnalysis;
-using System.Runtime.CompilerServices;
 using Silence.SurfaceWater.Core.Interfaces;
 using Silence.SurfaceWater.Core.Models;
 using Silence.SurfaceWater.Core.Validators;

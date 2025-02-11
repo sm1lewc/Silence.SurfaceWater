@@ -86,7 +86,8 @@ public static class FactorInfo
         Unit = Units.MgPerL,
         Precision = new Precision
         {
-            HourData = 2
+            HourData = 2,
+            AssessmentData = 1
         }
     };
 

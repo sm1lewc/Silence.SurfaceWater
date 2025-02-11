@@ -1,6 +1,7 @@
 using System.Diagnostics.CodeAnalysis;
 using Silence.SurfaceWater.Core.Enums;
 using Silence.SurfaceWater.Core.Interfaces;
+using Silence.SurfaceWater.Core.Models;
 using Silence.SurfaceWater.Core.Validators;
 using Silence.SurfaceWater.Standard;
 
@@ -281,5 +282,162 @@ public static class CWQICalculatorV2017
         FactorValueValidator.ValidateOtherFactor(value, factor.Name);
         var class3Value = QualityStandardV2002.GetClassStandardValue(factor.Code, isLake).Class3;
         return value / class3Value;
+    }
+
+    /// <summary>
+    /// 计算21项指标的CWQI之和,返回值不修约
+    /// </summary>
+    /// <param name="ph"></param>
+    /// <param name="do"></param>
+    /// <param name="codmn"></param>
+    /// <param name="cod"></param>
+    /// <param name="bod5"></param>
+    /// <param name="nh3n"></param>
+    /// <param name="tp"></param>
+    /// <param name="cu"></param>
+    /// <param name="zn"></param>
+    /// <param name="fl"></param>
+    /// <param name="se"></param>
+    /// <param name="as"></param>
+    /// <param name="hg"></param>
+    /// <param name="cd"></param>
+    /// <param name="cr6"></param>
+    /// <param name="pb"></param>
+    /// <param name="cn"></param>
+    /// <param name="vp"></param>
+    /// <param name="petro"></param>
+    /// <param name="las"></param>
+    /// <param name="s2"></param>
+    /// <param name="isLake"></param>
+    /// <param name="version"></param>
+    /// <returns></returns>
+    public static decimal? GetTotalCwqi(decimal? ph,
+        decimal? @do,
+        decimal? codmn,
+        decimal? cod,
+        decimal? bod5,
+        decimal? nh3n,
+        decimal? tp,
+        decimal? cu,
+        decimal? zn,
+        decimal? fl,
+        decimal? se,
+        decimal? @as,
+        decimal? hg,
+        decimal? cd,
+        decimal? cr6,
+        decimal? pb,
+        decimal? cn,
+        decimal? vp,
+        decimal? petro,
+        decimal? las,
+        decimal? s2,
+        bool isLake = false,
+        GB3838Version version = GB3838Version.V2002)
+    {
+        var cwqiList = new List<decimal?>
+        {
+            ph.HasValue ? GetPHCwqi(ph.Value, version) : null,
+            @do.HasValue ? GetDOCwqi(@do.Value, version) : null,
+            codmn.HasValue ? GetCODMNCwqi(codmn.Value, version) : null,
+            cod.HasValue ? GetCODCwqi(cod.Value, version) : null,
+            bod5.HasValue ? GetBOD5Cwqi(bod5.Value, version) : null,
+            nh3n.HasValue ? GetNH3NCwqi(nh3n.Value, version) : null,
+            tp.HasValue ? GetTPCwqi(tp.Value, isLake, version) : null,
+            cu.HasValue ? GetCUCwqi(cu.Value, version) : null,
+            zn.HasValue ? GetZNCwqi(zn.Value, version) : null,
+            fl.HasValue ? GetFLCwqi(fl.Value, version) : null,
+            se.HasValue ? GetSECwqi(se.Value, version) : null,
+            @as.HasValue ? GetASCwqi(@as.Value, version) : null,
+            hg.HasValue ? GetHGCwqi(hg.Value, version) : null,
+            cd.HasValue ? GetCDCwqi(cd.Value, version) : null,
+            cr6.HasValue ? GetCR6Cwqi(cr6.Value, version) : null,
+            pb.HasValue ? GetPBCwqi(pb.Value, version) : null,
+            cn.HasValue ? GetCNCwqi(cn.Value, version) : null,
+            vp.HasValue ? GetVPCwqi(vp.Value, version) : null,
+            petro.HasValue ? GetPETROCwqi(petro.Value, version) : null,
+            las.HasValue ? GetLASCwqi(las.Value, version) : null,
+            s2.HasValue ? GetS2Cwqi(s2.Value, version) : null
+        };
+        return cwqiList.Sum();
+    }
+
+    /// <summary>
+    /// 计算21项指标的CWQI,返回值不修约
+    /// </summary>
+    /// <param name="ph"></param>
+    /// <param name="do"></param>
+    /// <param name="codmn"></param>
+    /// <param name="cod"></param>
+    /// <param name="bod5"></param>
+    /// <param name="nh3n"></param>
+    /// <param name="tp"></param>
+    /// <param name="cu"></param>
+    /// <param name="zn"></param>
+    /// <param name="fl"></param>
+    /// <param name="se"></param>
+    /// <param name="as"></param>
+    /// <param name="hg"></param>
+    /// <param name="cd"></param>
+    /// <param name="cr6"></param>
+    /// <param name="pb"></param>
+    /// <param name="cn"></param>
+    /// <param name="vp"></param>
+    /// <param name="petro"></param>
+    /// <param name="las"></param>
+    /// <param name="s2"></param>
+    /// <param name="isLake"></param>
+    /// <param name="version"></param>
+    /// <returns>(cwqi之和，ICwqi集合)</returns>
+    public static (decimal? total, List<ICwqi>) GetIndividualCwqi(decimal? ph,
+        decimal? @do,
+        decimal? codmn,
+        decimal? cod,
+        decimal? bod5,
+        decimal? nh3n,
+        decimal? tp,
+        decimal? cu,
+        decimal? zn,
+        decimal? fl,
+        decimal? se,
+        decimal? @as,
+        decimal? hg,
+        decimal? cd,
+        decimal? cr6,
+        decimal? pb,
+        decimal? cn,
+        decimal? vp,
+        decimal? petro,
+        decimal? las,
+        decimal? s2,
+        bool isLake = false,
+        GB3838Version version = GB3838Version.V2002)
+    {
+        List<ICwqi> list =
+        [
+            new Cwqi() { FactroCode = FactorInfo.PH.Code, FactorValue = ph, FactorName = FactorInfo.PH.Name, FactorCwqi = ph.HasValue ? GetPHCwqi(ph.Value, version) : null },
+            new Cwqi() { FactroCode = FactorInfo.DO.Code, FactorValue = @do, FactorName = FactorInfo.DO.Name, FactorCwqi = @do.HasValue ? GetDOCwqi(@do.Value, version) : null },
+            new Cwqi() { FactroCode = FactorInfo.CODMN.Code, FactorValue = codmn, FactorName = FactorInfo.CODMN.Name, FactorCwqi = codmn.HasValue ? GetCODMNCwqi(codmn.Value, version) : null },
+            new Cwqi() { FactroCode = FactorInfo.COD.Code, FactorValue = cod, FactorName = FactorInfo.COD.Name, FactorCwqi = cod.HasValue ? GetCODCwqi(cod.Value, version) : null },
+            new Cwqi() { FactroCode = FactorInfo.BOD5.Code, FactorValue = bod5, FactorName = FactorInfo.BOD5.Name, FactorCwqi = bod5.HasValue ? GetBOD5Cwqi(bod5.Value, version) : null },
+            new Cwqi() { FactroCode = FactorInfo.NH3N.Code, FactorValue = nh3n, FactorName = FactorInfo.NH3N.Name, FactorCwqi = nh3n.HasValue ? GetNH3NCwqi(nh3n.Value, version) : null },
+            new Cwqi() { FactroCode = FactorInfo.TP.Code, FactorValue = tp, FactorName = FactorInfo.TP.Name, FactorCwqi = tp.HasValue ? GetTPCwqi(tp.Value, isLake, version) : null },
+            new Cwqi() { FactroCode = FactorInfo.CU.Code, FactorValue = cu, FactorName = FactorInfo.CU.Name, FactorCwqi = cu.HasValue ? GetCUCwqi(cu.Value, version) : null },
+            new Cwqi() { FactroCode = FactorInfo.ZN.Code, FactorValue = zn, FactorName = FactorInfo.ZN.Name, FactorCwqi = zn.HasValue ? GetZNCwqi(zn.Value, version) : null },
+            new Cwqi() { FactroCode = FactorInfo.FL.Code, FactorValue = fl, FactorName = FactorInfo.FL.Name, FactorCwqi = fl.HasValue ? GetFLCwqi(fl.Value, version) : null },
+            new Cwqi() { FactroCode = FactorInfo.SE.Code, FactorValue = se, FactorName = FactorInfo.SE.Name, FactorCwqi = se.HasValue ? GetSECwqi(se.Value, version) : null },
+            new Cwqi() { FactroCode = FactorInfo.AS.Code, FactorValue = @as, FactorName = FactorInfo.AS.Name, FactorCwqi = @as.HasValue ? GetASCwqi(@as.Value, version) : null },
+            new Cwqi() { FactroCode = FactorInfo.HG.Code, FactorValue = hg, FactorName = FactorInfo.HG.Name, FactorCwqi = hg.HasValue ? GetHGCwqi(hg.Value, version) : null },
+            new Cwqi() { FactroCode = FactorInfo.CD.Code, FactorValue = cd, FactorName = FactorInfo.CD.Name, FactorCwqi = cd.HasValue ? GetCDCwqi(cd.Value, version) : null },
+            new Cwqi() { FactroCode = FactorInfo.CR6.Code, FactorValue = cr6, FactorName = FactorInfo.CR6.Name, FactorCwqi = cr6.HasValue ? GetCR6Cwqi(cr6.Value, version) : null },
+            new Cwqi() { FactroCode = FactorInfo.PB.Code, FactorValue = pb, FactorName = FactorInfo.PB.Name, FactorCwqi = pb.HasValue ? GetPBCwqi(pb.Value, version) : null },
+            new Cwqi() { FactroCode = FactorInfo.CN.Code, FactorValue = cn, FactorName = FactorInfo.CN.Name, FactorCwqi = cn.HasValue ? GetCNCwqi(cn.Value, version) : null },
+            new Cwqi() { FactroCode = FactorInfo.VP.Code, FactorValue = vp, FactorName = FactorInfo.VP.Name, FactorCwqi = vp.HasValue ? GetVPCwqi(vp.Value, version) : null },
+            new Cwqi() { FactroCode = FactorInfo.PETRO.Code, FactorValue = petro, FactorName = FactorInfo.PETRO.Name, FactorCwqi = petro.HasValue ? GetPETROCwqi(petro.Value, version) : null },
+            new Cwqi() { FactroCode = FactorInfo.LAS.Code, FactorValue = las, FactorName = FactorInfo.LAS.Name, FactorCwqi = las.HasValue ? GetLASCwqi(las.Value, version) : null },
+            new Cwqi() { FactroCode = FactorInfo.S2.Code, FactorValue = s2, FactorName = FactorInfo.S2.Name, FactorCwqi = s2.HasValue ? GetS2Cwqi(s2.Value, version) : null }
+        ];
+        var total = list.Select(x => x.FactorCwqi).Sum();
+        return (total, list);
     }
 }
