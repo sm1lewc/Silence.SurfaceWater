@@ -52,6 +52,19 @@ public static class QualityStandardV2002
         };
         _StandardValues = new Dictionary<string, IStandardValue>
         {
+            [FactorInfo.Mn.Code]=MN,
+            [FactorInfo.Fe.Code] = FE,
+            [FactorInfo.Mo.Code] = Mo,
+            [FactorInfo.Co.Code] = Co,
+            [FactorInfo.Be.Code] = Be,
+            [FactorInfo.B.Code] = B,
+            [FactorInfo.Sb.Code] = Sb,
+            [FactorInfo.Ni.Code] = Ni,
+            [FactorInfo.Ba.Code] = Ba,
+            [FactorInfo.V.Code] = V,
+            [FactorInfo.Ti.Code] = Ti,
+            [FactorInfo.Tl.Code] = Tl
+                                
         };
     }
 
@@ -122,7 +135,6 @@ public static class QualityStandardV2002
     /// <exception cref="ArgumentOutOfRangeException"></exception>
     public static IStandardValue GetStandardValue(string factorCode)
     {
-        // TODO:修改此处的验证，改为表2 表3
         if (!WaterQualityClassTable1FactorValidatorV2002.IsValid(factorCode))
             throw new ArgumentOutOfRangeException($"{factorCode} 非有效的表2、表3指标编码");
         return _StandardValues[factorCode];
@@ -409,4 +421,56 @@ public static class QualityStandardV2002
         Class4 = 20000,
         Class5 = 40000
     };
+
+    /// <summary>
+    /// 铁 (mg/L)
+    /// </summary>
+    public static readonly IStandardValue FE = new StandardValue() { Value=0.3m  };
+
+    /// <summary>
+    /// 锰 (mg/L)
+    /// </summary>
+    public static readonly IStandardValue MN = new StandardValue() { Value = 0.1m };
+    /// <summary>
+    /// 钼
+    /// </summary>
+    public static readonly IStandardValue Mo = new StandardValue() { Value = 0.07m };
+    /// <summary>
+    /// 钴
+    /// </summary>
+    public static readonly IStandardValue Co = new StandardValue() { Value = 1m };
+    /// <summary>
+    /// 铍
+    /// </summary>
+    public static readonly IStandardValue Be= new StandardValue() { Value = 0.002m };
+    /// <summary>
+    /// 硼
+    /// </summary>
+    public static readonly IStandardValue B = new StandardValue() { Value = 0.5m };
+    /// <summary>
+    /// 锑
+    /// </summary>
+    public static readonly IStandardValue Sb = new StandardValue() { Value = 0.005m };
+    /// <summary>
+    /// 镍
+    /// </summary>
+    public static readonly IStandardValue Ni = new StandardValue() { Value = 0.02m };
+    /// <summary>
+    /// 钡
+    /// </summary>
+    public static readonly IStandardValue Ba= new StandardValue() { Value = 0.7m };
+    /// <summary>
+    /// 钒
+    /// </summary>
+    public static readonly IStandardValue V = new StandardValue() { Value = 0.05m };
+    /// <summary>
+    /// 钛
+    /// </summary>
+    public static readonly IStandardValue Ti = new StandardValue() { Value = 0.1m };
+    /// <summary>
+    /// 铊
+    /// </summary>
+    public static readonly IStandardValue Tl = new StandardValue() { Value = 0.0001m };
+
+
 }

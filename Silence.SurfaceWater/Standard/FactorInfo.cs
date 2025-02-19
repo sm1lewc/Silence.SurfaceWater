@@ -46,8 +46,19 @@ public static class FactorInfo
             [SO42.Code] = SO42,
             [CL.Code] = CL,
             [NO3.Code] = NO3,
-            [FE.Code] = FE,
-            [MN.Code] = MN
+            [Fe.Code] = Fe,
+            [Mn.Code] = Mn,
+            [Mo.Code] = Mo,
+            [Co.Code] = Co,
+            [Be.Code] = Be,
+            [B.Code] = B,
+            [Sb.Code] = Sb,
+            [Ni.Code] = Ni,
+            [Ba.Code] = Ba,
+            [V.Code] = V,
+            [Ti.Code] = Ti,
+            [Tl.Code] = Tl
+
         };
     }
 
@@ -534,7 +545,7 @@ public static class FactorInfo
     /// <summary>
     /// 铁
     /// </summary>
-    public static readonly IFactor FE = new Factor
+    public static readonly IFactor Fe = new Factor
     {
         Code = "w20125",
         Name = "铁",
@@ -550,7 +561,7 @@ public static class FactorInfo
     /// <summary>
     /// 锰
     /// </summary>
-    public static readonly IFactor MN = new Factor
+    public static readonly IFactor Mn = new Factor
     {
         Code = "w20124",
         Name = "锰",
@@ -562,4 +573,166 @@ public static class FactorInfo
             AssessmentData = 4
         }
     };
+
+    /// <summary>
+    /// 钼
+    /// </summary>
+    public static readonly IFactor Mo = new Factor
+    {
+        Code = "w20061",
+        Name = "钼",
+        FactorType = FactorType.物理和综合指标.ToString(),
+        Unit = Units.Meter,
+        Precision = new Precision
+        {
+            HourData = 4,
+            AssessmentData = 4
+        }
+    };
+
+    /// <summary>
+    /// 钴
+    /// </summary>
+    public static readonly IFactor Co = new Factor
+    {
+        Code = "w20038",
+        Name = "钴",
+        FactorType = FactorType.物理和综合指标.ToString(),
+        Unit = Units.Meter,
+        Precision = new Precision
+        {
+            HourData = 3,
+            AssessmentData = 3
+        }
+    };
+
+    /// <summary>
+    /// 铍
+    /// </summary>
+    public static readonly IFactor Be = new Factor
+    {
+        Code = "w20147",
+        Name = "铍",
+        FactorType = FactorType.物理和综合指标.ToString(),
+        Unit = Units.Meter,
+        Precision = new Precision
+        {
+            HourData = 4,
+            AssessmentData = 4
+        }
+    };
+
+    /// <summary>
+    /// 硼
+    /// </summary>
+    public static readonly IFactor B = new Factor
+    {
+        Code = "w20023",
+        Name = "硼",
+        FactorType = FactorType.物理和综合指标.ToString(),
+        Unit = Units.Meter,
+        Precision = new Precision
+        {
+            HourData = 3,
+            AssessmentData = 3
+        }
+    };
+
+    /// <summary>
+    /// 锑
+    /// </summary>
+    public static readonly IFactor Sb = new Factor
+    {
+        Code = "w20004",
+        Name = "锑",
+        FactorType = FactorType.物理和综合指标.ToString(),
+        Unit = Units.Meter,
+        Precision = new Precision
+        {
+            HourData = 4,
+            AssessmentData = 4
+        }
+    };
+
+    /// <summary>
+    /// 镍
+    /// </summary>
+    public static readonly IFactor Ni = new Factor
+    {
+        Code = "w20148",
+        Name = "镍",
+        FactorType = FactorType.物理和综合指标.ToString(),
+        Unit = Units.Meter,
+        Precision = new Precision
+        {
+            HourData = 4,
+            AssessmentData = 4
+        }
+    };
+
+    /// <summary>
+    /// 钡
+    /// </summary>
+    public static readonly IFactor Ba = new Factor
+    {
+        Code = "w20012",
+        Name = "钡",
+        FactorType = FactorType.物理和综合指标.ToString(),
+        Unit = Units.Meter,
+        Precision = new Precision
+        {
+            HourData = 3,
+            AssessmentData = 3
+        }
+    };
+
+    /// <summary>
+    /// 钒
+    /// </summary>
+    public static readonly IFactor V = new Factor
+    {
+        Code = "w20101",
+        Name = "钒",
+        FactorType = FactorType.物理和综合指标.ToString(),
+        Unit = Units.Meter,
+        Precision = new Precision
+        {
+            HourData = 4,
+            AssessmentData = 4
+        }
+    };
+
+    /// <summary>
+    /// 钛
+    /// </summary>
+    public static readonly IFactor Ti = new Factor
+    {
+        Code = "w20095",
+        Name = "钛",
+        FactorType = FactorType.物理和综合指标.ToString(),
+        Unit = Units.Meter,
+        Precision = new Precision
+        {
+            HourData = 3,
+            AssessmentData = 3
+        }
+    };
+
+    /// <summary>
+    /// 铊
+    /// </summary>
+    public static readonly IFactor Tl = new Factor
+    {
+        Code = "w20089",
+        Name = "铊",
+        FactorType = FactorType.物理和综合指标.ToString(),
+        Unit = Units.Meter,
+        Precision = new Precision
+        {
+            HourData = 5,
+            AssessmentData = 5
+        }
+    };
+
+
 }
