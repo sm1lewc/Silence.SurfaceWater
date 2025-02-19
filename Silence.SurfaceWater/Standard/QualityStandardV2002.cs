@@ -52,7 +52,7 @@ public static class QualityStandardV2002
         };
         _StandardValues = new Dictionary<string, IStandardValue>
         {
-            [FactorInfo.Mn.Code]=MN,
+            [FactorInfo.Mn.Code] = MN,
             [FactorInfo.Fe.Code] = FE,
             [FactorInfo.Mo.Code] = Mo,
             [FactorInfo.Co.Code] = Co,
@@ -64,7 +64,7 @@ public static class QualityStandardV2002
             [FactorInfo.V.Code] = V,
             [FactorInfo.Ti.Code] = Ti,
             [FactorInfo.Tl.Code] = Tl
-                                
+
         };
     }
 
@@ -133,11 +133,11 @@ public static class QualityStandardV2002
     /// <param name="factorCode"></param>
     /// <returns></returns>
     /// <exception cref="ArgumentOutOfRangeException"></exception>
-    public static IStandardValue GetStandardValue(string factorCode)
+    public static decimal GetStandardValue(string factorCode)
     {
-        if (!WaterQualityClassTable1FactorValidatorV2002.IsValid(factorCode))
+        if (!WaterQualityClassTable23FactorValidatorV2002.IsValid(factorCode))
             throw new ArgumentOutOfRangeException($"{factorCode} 非有效的表2、表3指标编码");
-        return _StandardValues[factorCode];
+        return _StandardValues[factorCode].Value;
     }
 
     /// <summary>
@@ -425,7 +425,7 @@ public static class QualityStandardV2002
     /// <summary>
     /// 铁 (mg/L)
     /// </summary>
-    public static readonly IStandardValue FE = new StandardValue() { Value=0.3m  };
+    public static readonly IStandardValue FE = new StandardValue() { Value = 0.3m };
 
     /// <summary>
     /// 锰 (mg/L)
@@ -442,7 +442,7 @@ public static class QualityStandardV2002
     /// <summary>
     /// 铍
     /// </summary>
-    public static readonly IStandardValue Be= new StandardValue() { Value = 0.002m };
+    public static readonly IStandardValue Be = new StandardValue() { Value = 0.002m };
     /// <summary>
     /// 硼
     /// </summary>
@@ -458,7 +458,7 @@ public static class QualityStandardV2002
     /// <summary>
     /// 钡
     /// </summary>
-    public static readonly IStandardValue Ba= new StandardValue() { Value = 0.7m };
+    public static readonly IStandardValue Ba = new StandardValue() { Value = 0.7m };
     /// <summary>
     /// 钒
     /// </summary>
